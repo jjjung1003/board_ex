@@ -13,7 +13,15 @@
      String id=request.getParameter("id");
      String name=request.getParameter("name");
      
-     String sql="select * from board order by id desc";
+     int pager;
+     	if(request.getParameter("pager")==null)
+     		pager=1;
+     	else
+     		pager=Integer.parseInt(request.getParameter("pager"));
+     	
+     int index=(pager-1)*10;
+
+     String sql="select * from board order by id desc limit "+index+", 10";
      
      Statement stmt=conn.createStatement();
      ResultSet rs=stmt.executeQuery(sql);
@@ -57,7 +65,109 @@
 	  }
 	  %>
 	</table> <br><br>
-	<a href="write.jsp"> 글쓰기 </a>
+	
+	<%
+		String sql2="select count(*) as c from board";
+	
+		Statement stmt2=conn.createStatement();
+		ResultSet rs2=stmt.executeQuery(sql2);
+		
+		rs2.next();
+		
+		int total=rs2.getInt("c");
+
+		int page_cnt=total/10;
+		
+		if(total%10 == 0)
+			page_cnt=page_cnt-1;
+		
+		page_cnt=page_cnt+1;
+		
+		int pstart=pager/10;
+		
+		if(pager%10 == 0)
+			pstart=pstart-1;
+		
+		pstart=pstart*10+1;
+		
+		int pend=pstart+9;
+		
+		if(pend > page_cnt)
+			pend=page_cnt;
+				
+		if(pstart != 1)
+		  {
+  	%>
+	    	<a href="list.jsp?pager=<%=pstart-1%>">  << </a>
+	    <%	
+		  }
+	    else
+	    {
+	    %>
+	    <<
+	    
+	    <%
+	    }
+
+	    if(pager !=1)
+	    {
+	    %>	   
+	  <a href="list.jsp?pager=<%=pager-1%>">  < </a>
+	  <%
+	    }
+	    else
+	    {	
+	  %>
+	  <
+	  
+	  <%
+	    }
+		
+	    String chk="";
+	    
+	    for(int i=pstart; i<=pend; i++)
+	    {
+	    	if(pager == i)
+	    		chk="style='color:red'";
+	    	else
+	    		chk="style='color:black'";	    	
+	    	%>
+	    	   	
+	    <a href="list.jsp?pager=<%=i%>"<%=chk %>> <%=i %> </a>	
+<%		
+	  		}
+
+	  		if(pager != page_cnt)
+	  		{
+	  	%>
+	  	  
+	  	  <a href="list.jsp?pager=<%=pager+1%>">  > </a>
+	  	  <%
+	  		}
+	  		else
+	  		{
+	  	  %>
+	  	  >
+	  	  
+	  	  <%
+	  		}
+	  	 
+	  	  	if(pend != page_cnt)
+	  	  	{
+	  	  %>
+	  	  <a href="list.jsp?pager=<%=pend+1%>">  >> </a> <p><br>
+	  	  
+	  	  <%
+	  	  	}
+	  	  	else
+	  	  	{
+	  	  %>
+	  	  >>
+	  	  
+	  	  <%
+	  	  	}
+	  	  %>
+	<div><a href="write.jsp"> 글쓰기 </a></div>
 	</div>
 </body>
 </html>
