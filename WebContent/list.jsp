@@ -49,14 +49,15 @@
 	  <tr>
 	    <td><%=rs.getString("id") %></td>
 	    <td><%=rs.getString("name") %></td>
-	    <td><a href="content.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("title") %></a></td>
+	    <td><a href="readnum.jsp?id=<%=rs.getString("id")%>"><%=rs.getString("title") %></a></td>
 	    <td><%=rs.getString("readnum") %></td>
 	    <td><%=rs.getString("writeday") %></td>	    
 	  </tr>  
 	  <%
 	  }
 	  %>
-	</table>
+	</table> <br><br>
+	<a href="write.jsp"> 글쓰기 </a>
 	</div>
 </body>
 </html>

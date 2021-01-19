@@ -37,24 +37,41 @@
 	<table width="500" align="center">
 	  <tr id="table_a">
  		<td> 글번호 </td>
+ 		<td><%=rs.getString("id") %></td>
+ 	  </tr>	
+ 	  <tr> 	  	
 	    <td> 작성자 </td>	
+	    <td><%=rs.getString("name") %></td>
+	  </tr>	
+ 	  <tr>
 	    <td> 제목 </td>	
-	    <td> 조회수 </td>	    
+	    <td><%=rs.getString("title") %></td>
+	  </tr>	
+ 	  <tr>   
+	    <td> 조회수 </td>	 
+	    <td><%=rs.getString("readnum") %></td>  
+	  </tr>	
+ 	  <tr>   
         <td> 작성일 </td>
+        <td><%=rs.getString("writeday") %></td>	
+      </tr>	
+ 	  <tr>  
+        <td> 내용 </td>	
+	    <td><%=rs.getString("content") %></td>
 	  </tr>
 
 	  <tr>
-	    <td><%=rs.getString("id") %></td>
-	    <td><%=rs.getString("name") %></td>
-	    <td><%=rs.getString("title") %></td>
-	    <td><%=rs.getString("readnum") %></td>
-	    <td><%=rs.getString("writeday") %></td>	    
+	    
+	    
+	    
+	    
+	        
 	  </tr>  
 
-	</table>
-	<div><a href="../board/list.jsp"> 목록 </a></div>
-	<div><a href="../board/update.jsp?id=<%=rs.getString("id")%>"> 수정 </a></div>
-	<div><a href="../board/delete.jsp?id=<%=rs.getString("id")%>"> 삭제 </a></div>
+	</table> <br><br>
+	<span><a href="list.jsp"> 목록 </a></span>
+	<span><a href="update.jsp?id=<%=rs.getString("id")%>"> 수정 </a></span>
+	<span><a href="delete.jsp?id=<%=rs.getString("id")%>"> 삭제 </a></span>
 	</div>
 </body>
 </html>
